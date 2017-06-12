@@ -9,17 +9,27 @@ $(document).ready(function(){
 	function createGrid(){
 		var width = Math.round(TABLEWIDTH / (COLNUMBER + COLBORDER));
 		var heigth = Math.round(TABLEHEIGHT / (LINENUMBER + COLBORDER));
-		var classes = {};
-		for (var i = 0; i < COLNUMBER; i++){
-			var position = i * (width + COLBORDER);
-			classes["col"+ (i+1) ] = {
+		var classes = {
+			".col" : { 
 				"width" :  width + "px;", 
-				"heigth" : heigth + "px;", 
+				"heigth" : heigth + "px;"
+			}
+		};
+
+		for (var i = 0; i < COLNUMBER; i++){
+			var pLeft = i * (width + COLBORDER);
+			classes[".col" + (i+1)] = {
 				"position" : "relative;",
-				"left" : position +"px;"
+				"left" : pLeft + "px;"
 			};
 		}
-		classes = JSON.stringify(classes, null, "    ").replace(/[\"\,]/g, "").replace(/col/g, ".col").replace(/\:\s\{/g, " {");
+		for (var y = 0; y < LINENUMBER; y++){
+			var ptop = y * (heigth + COLBORDER);
+			classes[".line" + (y+1)] = {
+				"top" : ptop + "px;"
+			};
+		}
+		classes = JSON.stringify(classes, null, "    ").replace(/[\"\,]/g, "").replace(/\:\s\{/g, " {");
 		$("#textArea").text(classes);
 
 	}
